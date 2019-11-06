@@ -11,7 +11,7 @@
 
     <groupId>com.shtramak</groupId>
     <artifactId>spring-pet-clinic</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     <name>spring-pet-clinic</name>
@@ -50,7 +50,7 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/Shtramak/spring-pet-clinic</developerConnection>
-      <tag>spring-pet-clinic-0.0.1</tag>
+      <tag>HEAD</tag>
   </scm>
 
 </project>
