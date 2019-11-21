@@ -1,5 +1,6 @@
 package com.shtramak.springpetclinic.service.map;
 
+import com.shtramak.springpetclinic.model.BaseEntity;
 import com.shtramak.springpetclinic.service.CrudService;
 
 import java.util.HashSet;
@@ -8,7 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
-public abstract class AbstractMapService<T, ID extends Long> implements CrudService<T, ID> {
+public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> implements CrudService<T, ID> {
     private AtomicLong idGenerator = new AtomicLong(0);
 
     protected Map<Long, T> map;
@@ -26,6 +27,7 @@ public abstract class AbstractMapService<T, ID extends Long> implements CrudServ
     @Override
     public T save(T object) {
         Long id = idGenerator.incrementAndGet();
+        object.setId(id);
         map.put(id, object);
         return object;
     }
