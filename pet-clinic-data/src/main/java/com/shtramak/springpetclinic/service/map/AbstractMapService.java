@@ -2,14 +2,16 @@ package com.shtramak.springpetclinic.service.map;
 
 import com.shtramak.springpetclinic.service.CrudService;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
-public abstract class AbstractMapService<T, ID> implements CrudService<T, ID> {
-    protected Map<ID, T> map = new HashMap<>();
+public abstract class AbstractMapService<T, ID extends Long> implements CrudService<T, ID> {
+    private AtomicLong idGenerator = new AtomicLong(0);
+
+    protected Map<Long, T> map;
 
     @Override
     public Set<T> findAll() {
@@ -21,7 +23,9 @@ public abstract class AbstractMapService<T, ID> implements CrudService<T, ID> {
         return Optional.of(map.get(id));
     }
 
-    public T saveOrUpdate(ID id, T object) {
+    @Override
+    public T save(T object) {
+        Long id = idGenerator.incrementAndGet();
         map.put(id, object);
         return object;
     }

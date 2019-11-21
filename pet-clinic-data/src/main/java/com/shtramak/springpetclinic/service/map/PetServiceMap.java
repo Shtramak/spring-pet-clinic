@@ -4,11 +4,13 @@ import com.shtramak.springpetclinic.model.Pet;
 import com.shtramak.springpetclinic.service.PetService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import java.util.concurrent.ConcurrentHashMap;
+
 @Service
 public class PetServiceMap extends AbstractMapService<Pet, Long> implements PetService {
-    @Override
-    public Pet save(Pet pet) {
-        super.saveOrUpdate(pet.getId(), pet);
-        return pet;
+    @PostConstruct
+    private void init() {
+        map = new ConcurrentHashMap<>();
     }
 }
