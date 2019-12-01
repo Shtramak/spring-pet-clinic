@@ -7,12 +7,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> implements CrudService<T, ID> {
     private AtomicLong idGenerator = new AtomicLong(0);
 
-    protected Map<Long, T> map;
+    protected Map<Long, T> map = new ConcurrentHashMap<>();
 
     @Override
     public Set<T> findAll() {
