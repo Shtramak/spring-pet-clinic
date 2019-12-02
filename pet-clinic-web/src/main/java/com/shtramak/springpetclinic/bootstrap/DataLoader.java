@@ -1,6 +1,7 @@
 package com.shtramak.springpetclinic.bootstrap;
 
 import com.shtramak.springpetclinic.model.Owner;
+import com.shtramak.springpetclinic.model.Pet;
 import com.shtramak.springpetclinic.model.PetType;
 import com.shtramak.springpetclinic.model.Vet;
 import com.shtramak.springpetclinic.service.OwnerService;
@@ -28,17 +29,33 @@ public class DataLoader implements CommandLineRunner {
         PetType savedDogPetType = petTypeService.save(dog);
 
         PetType cat = new PetType();
-        dog.setName("Cat");
+        cat.setName("Cat");
         PetType savedCatPetType = petTypeService.save(cat);
+
+        System.out.println("Loaded PetTypes...");
 
         Owner owner1 = new Owner();
         owner1.setFirstName("Oleg");
         owner1.setLastName("Skrypka");
+        owner1.setAddress("123 Derebasovska");
+        owner1.setCity("Odessa");
+        owner1.setTelephone("23476511");
+        Pet dogPet = new Pet();
+        dogPet.setPetType(savedDogPetType);
+        dogPet.setName("Snoop Dog");
+        owner1.getPets().add(dogPet);
         ownerService.save(owner1);
 
         Owner owner2 = new Owner();
         owner2.setFirstName("Oleg");
         owner2.setLastName("Vinnyk");
+        owner2.setAddress("123 Silska");
+        owner2.setCity("Berdychiv");
+        owner2.setTelephone("987654231");
+        Pet catPet = new Pet();
+        catPet.setPetType(cat);
+        catPet.setName("Kitty");
+        owner2.getPets().add(catPet);
         ownerService.save(owner2);
 
         System.out.println("Loaded Owners...");
