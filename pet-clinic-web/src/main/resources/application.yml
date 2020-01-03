@@ -3,4 +3,7 @@ spring:
   messages:
     basename: messages/messages
   profiles:
-    active: map
+    active: spring-data
+  h2:
+    console:
+      enabled: true
