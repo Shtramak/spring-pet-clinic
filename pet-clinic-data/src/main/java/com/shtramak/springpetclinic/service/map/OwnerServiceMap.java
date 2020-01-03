@@ -6,6 +6,7 @@ import com.shtramak.springpetclinic.model.PetType;
 import com.shtramak.springpetclinic.service.OwnerService;
 import com.shtramak.springpetclinic.service.PetService;
 import com.shtramak.springpetclinic.service.PetTypeService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Profile({"default","map"})
 public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
     private final PetService petService;
     private final PetTypeService petTypeService;
