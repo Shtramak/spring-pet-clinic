@@ -30,4 +30,25 @@ public class Pet extends BaseEntity {
     @Setter(AccessLevel.PRIVATE)
     @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
     private Set<Visit> visits = new HashSet<>();
+
+    public void addVisit(Visit visit) {
+        visits.add(visit);
+        visit.setPet(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pet pet = (Pet) o;
+        return name.equals(pet.name) &&
+                petType.equals(pet.petType) &&
+                owner.equals(pet.owner) &&
+                birthDate.equals(pet.birthDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31;
+    }
 }
