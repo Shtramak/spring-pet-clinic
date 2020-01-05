@@ -3,6 +3,7 @@ spring:
   messages:
     basename: messages/messages
   profiles:
+    # default, map or spring-data profiles
     active: spring-data
   h2:
     console:
