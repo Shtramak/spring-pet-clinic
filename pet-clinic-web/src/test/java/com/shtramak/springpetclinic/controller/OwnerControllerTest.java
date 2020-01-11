@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -45,5 +46,18 @@ class OwnerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("owners/index"))
                 .andExpect(model().attribute("owners", Matchers.equalTo(owners)));
+    }
+
+    @Test
+    void ownerDetail() throws Exception {
+        long id = 1L;
+        Owner owner = new Owner();
+        owner.setId(id);
+        Optional<Owner> optOwner = Optional.of(owner);
+        when(service.findById(id)).thenReturn(optOwner);
+        mockMvc.perform(get("/owners/" + id))
+                .andExpect(status().isOk())
+                .andExpect(view().name("owners/ownerDetails"))
+                .andExpect(model().attribute("owner", Matchers.equalTo(owner)));
     }
 }
