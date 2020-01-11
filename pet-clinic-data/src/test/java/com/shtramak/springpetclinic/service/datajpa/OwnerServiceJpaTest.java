@@ -10,7 +10,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,20 +35,22 @@ class OwnerServiceJpaTest {
     ArgumentCaptor<Owner> captor;
 
     @Test
-    void findByLastNameWhenOwnerExistsReturnsOptionalWithOwner() {
+    void findByLastNameWhenOwnerExistsReturnsListWithOwners() {
         String lastName = "Doe";
         Owner owner = new Owner();
         owner.setLastName(lastName);
-        when(repository.findByLastName(lastName)).thenReturn(Optional.of(owner));
-        Optional<Owner> result = service.findByLastName(lastName);
-        assertEquals(owner, result.orElseThrow());
+        List<Owner> owners = List.of(owner);
+        when(repository.findAllByLastName(lastName)).thenReturn(owners);
+        List<Owner> result = service.findAllByLastName(lastName);
+        assertEquals(owners, result);
     }
 
     @Test
-    void findByLastNameWhenOwnerNotExistsReturnsEmptyOptional() {
-        when(repository.findByLastName(any())).thenReturn(Optional.empty());
-        Optional<Owner> result = service.findByLastName("anyName");
-        assertEquals(Optional.empty(), result);
+    void findByLastNameWhenOwnerNotExistsReturnsEmptyList() {
+        List<Owner> emptyList = Collections.emptyList();
+        when(repository.findAllByLastName(any())).thenReturn(emptyList);
+        List<Owner> result = service.findAllByLastName("anyName");
+        assertEquals(emptyList, result);
     }
 
     @Test
