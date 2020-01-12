@@ -40,4 +40,8 @@ public class Pet extends BaseEntity {
     public int hashCode() {
         return 31;
     }
+
+    public boolean isNew() {
+        return this.getId() == null;
+    }
 }
