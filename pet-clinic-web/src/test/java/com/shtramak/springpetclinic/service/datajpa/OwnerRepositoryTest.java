@@ -26,7 +26,7 @@ class OwnerRepositoryTest {
 
     @Test
     void findByLastName() {
-        List<Owner> owner = repository.findAllByLastName("Poe");
+        List<Owner> owner = repository.findAllByLastNameLike("Poe");
         assertFalse(owner.isEmpty());
     }
 }

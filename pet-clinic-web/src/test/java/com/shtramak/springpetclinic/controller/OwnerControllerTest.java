@@ -85,7 +85,7 @@ class OwnerControllerTest {
         Owner owner2 = new Owner();
         owner2.setId(2L);
         owner2.setLastName("lastName");
-        when(service.findAllByLastName(anyString())).thenReturn(List.of(owner1, owner2));
+        when(service.findAllByLastNameLike(anyString())).thenReturn(List.of(owner1, owner2));
         mockMvc.perform(get("/owners").flashAttr("owner", owner1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("owners/ownersList"))
@@ -97,7 +97,7 @@ class OwnerControllerTest {
         long id = 1L;
         Owner owner = new Owner();
         owner.setId(id);
-        when(service.findAllByLastName(anyString())).thenReturn(List.of(owner));
+        when(service.findAllByLastNameLike(anyString())).thenReturn(List.of(owner));
 
         mockMvc.perform(get("/owners").param("lastName", "lastName"))
                 .andExpect(status().is3xxRedirection())

@@ -23,12 +23,12 @@ public class OwnerController {
     @GetMapping
     public String listOwners(Owner owner, BindingResult result, Model model) {
         // allow parameterless GET request for /owners to return all records
-        if (owner.getLastName() == null) {
+        if (owner.getLastName().isBlank()) {
             model.addAttribute("owners", service.findAll());
             return "owners/ownersList";
         }
 
-        List<Owner> results = service.findAllByLastName(owner.getLastName());
+        List<Owner> results = service.findAllByLastNameLike(owner.getLastName());
 
         if (results.isEmpty()) {
             result.rejectValue("lastName", "notFound", "not found");

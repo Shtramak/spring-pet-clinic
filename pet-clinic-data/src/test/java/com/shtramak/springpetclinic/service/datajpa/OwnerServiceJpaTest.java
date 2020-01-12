@@ -40,16 +40,16 @@ class OwnerServiceJpaTest {
         Owner owner = new Owner();
         owner.setLastName(lastName);
         List<Owner> owners = List.of(owner);
-        when(repository.findAllByLastName(lastName)).thenReturn(owners);
-        List<Owner> result = service.findAllByLastName(lastName);
+        when(repository.findAllByLastNameLike(lastName)).thenReturn(owners);
+        List<Owner> result = service.findAllByLastNameLike(lastName);
         assertEquals(owners, result);
     }
 
     @Test
     void findByLastNameWhenOwnerNotExistsReturnsEmptyList() {
         List<Owner> emptyList = Collections.emptyList();
-        when(repository.findAllByLastName(any())).thenReturn(emptyList);
-        List<Owner> result = service.findAllByLastName("anyName");
+        when(repository.findAllByLastNameLike(any())).thenReturn(emptyList);
+        List<Owner> result = service.findAllByLastNameLike("anyName");
         assertEquals(emptyList, result);
     }
 
