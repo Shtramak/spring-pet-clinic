@@ -40,7 +40,7 @@ class OwnerServiceJpaTest {
         Owner owner = new Owner();
         owner.setLastName(lastName);
         List<Owner> owners = List.of(owner);
-        when(repository.findAllByLastNameLike(lastName)).thenReturn(owners);
+        when(repository.findAllByLastNameLike("%" + lastName + "%")).thenReturn(owners);
         List<Owner> result = service.findAllByLastNameLike(lastName);
         assertEquals(owners, result);
     }
