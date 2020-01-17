@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -34,6 +35,14 @@ public class Pet extends BaseEntity {
     public void addVisit(Visit visit) {
         visits.add(visit);
         visit.setPet(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pet pet = (Pet) o;
+        return Objects.equals(this.getId(), pet.getId());
     }
 
     @Override
