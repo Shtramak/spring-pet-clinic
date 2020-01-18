@@ -24,11 +24,11 @@ public class OwnerController {
     private static final String CREATE_OR_UPDATE_OWNER_FORM = "owners/createOrUpdateOwnerForm";
     private static final String FIND_OWNERS = "owners/findOwners";
     private static final String OWNERS_LIST = "owners/ownersList";
+    public static final String OWNER_DETAILS = "owners/ownerDetails";
     private final OwnerService service;
 
     @GetMapping
     public String listOwners(Owner owner, BindingResult result, Model model) {
-        // allow parameterless GET request for /owners to return all records
         if (hasBlankLastName(owner)) {
             model.addAttribute("owners", service.findAll());
             return OWNERS_LIST;
@@ -54,7 +54,7 @@ public class OwnerController {
 
     @GetMapping("/{id}")
     public ModelAndView ownerById(@PathVariable Long id) {
-        ModelAndView modelAndView = new ModelAndView("owners/ownerDetails");
+        ModelAndView modelAndView = new ModelAndView(OWNER_DETAILS);
         modelAndView.addObject(service.findById(id).orElseThrow(NoSuchElementException::new)); // todo Exception Handling
         return modelAndView;
     }
