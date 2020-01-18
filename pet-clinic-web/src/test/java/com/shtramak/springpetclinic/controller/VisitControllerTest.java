@@ -18,6 +18,7 @@ import org.springframework.web.util.UriTemplate;
 
 import java.net.URI;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -92,9 +93,10 @@ class VisitControllerTest {
 
     @Test
     void processNewVisitForm() throws Exception {
+        String date = LocalDate.now().plusDays(1).format(DateTimeFormatter.ISO_DATE);
         mockMvc.perform(post(visitsUri)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("date", "2018-11-11")
+                .param("date", date)
                 .param("description", YET_ANOTHER_VISIT_DESCRIPTION))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name(REDIRECT_OWNERS_1))

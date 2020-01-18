@@ -10,13 +10,13 @@ import java.util.NoSuchElementException;
 
 @ControllerAdvice
 public class PetClinicExceptionHandler {
-    @ExceptionHandler(NoSuchElementException.class)
+    @ExceptionHandler({NoSuchElementException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<String> noSuchElement() {
         return new ResponseEntity<>("Page cannot be found",HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(NoSuchElementException.class)
+    @ExceptionHandler({Exception.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<String> oops() {
         return new ResponseEntity<>("Oops something goes wrong... ",HttpStatus.NOT_FOUND);

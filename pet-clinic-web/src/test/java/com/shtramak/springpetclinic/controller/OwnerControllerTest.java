@@ -126,13 +126,15 @@ class OwnerControllerTest {
     @Test
     void createNewOwnerOnSubmit() throws Exception {
         long savedId = 1L;
-        Owner savedOwner = new Owner();
-        savedOwner.setId(savedId);
-        when(service.save(any())).thenReturn(savedOwner);
-        mockMvc.perform(post("/owners/new"))
+        Owner owner = new Owner();
+        owner.setFirstName("John");
+        owner.setLastName("Doe");
+        owner.setId(savedId);
+        when(service.save(any())).thenReturn(owner);
+        mockMvc.perform(post("/owners/new").flashAttr("owner", owner))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/" + savedId))
-                .andExpect(model().attribute("owner", equalTo(savedOwner)));
+                .andExpect(model().attribute("owner", equalTo(owner)));
         verify(service, times(1)).save(any());
         verifyNoMoreInteractions(service);
     }
@@ -154,15 +156,17 @@ class OwnerControllerTest {
     @Test
     void updateUpdateOwnerOnSubmit() throws Exception {
         Long id = 1L;
-        Owner savedOwner = new Owner();
-        savedOwner.setId(id);
-        when(service.save(any())).thenReturn(savedOwner);
-        mockMvc.perform(post(String.format("/owners/%d/edit", id)))
+        Owner owner = new Owner();
+        owner.setFirstName("John");
+        owner.setLastName("Doe");
+        owner.setId(id);
+        when(service.save(any())).thenReturn(owner);
+        mockMvc.perform(post(String.format("/owners/%d/edit", id)).flashAttr("owner", owner))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/" + id))
                 .andExpect(model().attributeExists("owner"))
-                .andExpect(model().attribute("owner", equalTo(savedOwner)));
-        verify(service, times(1)).save(any());
+                .andExpect(model().attribute("owner", equalTo(owner)));
+        verify(service, times(1)).save(owner);
         verifyNoMoreInteractions(service);
     }
 }
