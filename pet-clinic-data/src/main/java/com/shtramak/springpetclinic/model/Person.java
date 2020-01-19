@@ -14,13 +14,13 @@ import javax.validation.constraints.Size;
 @MappedSuperclass
 @RequiredArgsConstructor
 public class Person extends BaseEntity {
-    @NotBlank
-    @Size(min = 2)
+    @NotBlank(message = "This field is mandatory. Please enter first name")
+    @Size(min = 2, message = "Minimum length is 2 characters")
     @Column(name = "first_name")
     private String firstName;
 
-    @NotBlank
-    @Size(min = 2)
+    @NotBlank(message = "This field is mandatory. Please enter last name")
+    @Size(min = 2, message = "Minimum length is 2 characters")
     @Column(name = "last_name")
     private String lastName;
 

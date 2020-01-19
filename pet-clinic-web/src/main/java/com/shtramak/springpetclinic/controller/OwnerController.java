@@ -73,7 +73,11 @@ public class OwnerController {
     }
 
     @PostMapping("/new")
-    public String create(@Valid Owner owner, Model model) {
+    public String create(@Valid Owner owner, BindingResult result, Model model) {
+        if(result.hasErrors()){
+            model.addAttribute("owner", owner);
+            return CREATE_OR_UPDATE_OWNER_FORM;
+        }
         Owner savedOwner = service.save(owner);
         model.addAttribute("owner", savedOwner);
         return "redirect:/owners/" + savedOwner.getId();
@@ -87,10 +91,15 @@ public class OwnerController {
     }
 
     @PostMapping("/{id}/edit")
-    public String update(@PathVariable Long id, @Valid Owner owner, Model model) {
+    public String update(@PathVariable Long id, @Valid Owner owner, BindingResult result, Model model) {
         if (!Objects.equals(id, owner.getId())) {
             throw new RuntimeException("Id of owner doesn't match with path variable");
         }
+        if(result.hasErrors()){
+            model.addAttribute("owner", owner);
+            return CREATE_OR_UPDATE_OWNER_FORM;
+        }
+
         Owner updatedOwner = service.save(owner);
         model.addAttribute("owner", updatedOwner);
         return "redirect:/owners/" + id;
