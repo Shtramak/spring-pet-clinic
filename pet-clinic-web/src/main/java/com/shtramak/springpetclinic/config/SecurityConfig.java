@@ -14,11 +14,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/").permitAll() // This will be your home screen URL
+                .antMatchers("/resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf()
                 .disable()
                 .formLogin()
+                .defaultSuccessUrl("/findOwners.html")
+                .permitAll()
+                .and()
+                .logout()
                 .permitAll();
     }
 }
